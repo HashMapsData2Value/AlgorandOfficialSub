@@ -1,4 +1,5 @@
 from datetime import datetime
+import sys
 import praw
 
 no_flair_token = '___NOFLAIR___'
@@ -49,9 +50,9 @@ def get_introductory_post():
   return post
 
 def generate_megathread(reddit = praw.Reddit(
-    client_id="",
-    client_secret="",
-    user_agent="AlgorandOfficialMods",
+    client_id,
+    client_secret,
+    user_agent,
   )):
 
   submissions = submissions_from_last_week(reddit)
@@ -63,7 +64,10 @@ def generate_megathread(reddit = praw.Reddit(
   
   return post
 
-if __name__ == "__main__":
+def write_post(post):
+  with open('post.md', 'w') as f:
+    f.write(post)
 
-  post = generate_megathread()
-  print(post)
+if __name__ == "__main__":
+  post = generate_megathread(sys.argv[1], sys.argv[2], sys.argv[3]) #Expects the client id, client secret and user agent to be passed in
+  write_post(post)
