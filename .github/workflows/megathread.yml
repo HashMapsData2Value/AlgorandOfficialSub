@@ -1,19 +1,13 @@
 name: Megathread!
-
 on:  
   workflow_dispatch:
   schedule:
     - cron: '0 0 * * 1'  # every day at midnight
-
-
 permissions:
   contents: read
-
 jobs:
-  build:
-
+  generate-megathread:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
