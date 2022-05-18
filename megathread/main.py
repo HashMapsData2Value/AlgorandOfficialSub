@@ -49,8 +49,8 @@ def get_introductory_post():
   return post
 
 def generate_megathread(reddit = praw.Reddit(
-    client_id="IqLjVEfUs0uMcBbdcCiLsw",
-    client_secret="uKQ-IYGp5d2LwzyfTESBqJCdTQLQ5A",
+    client_id="",
+    client_secret="",
     user_agent="AlgorandOfficialMods",
   )):
 
