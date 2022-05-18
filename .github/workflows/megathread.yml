@@ -1,9 +1,9 @@
 name: Megathread!
 
 on:  
+  workflow_dispatch:
   schedule:
     - cron: '0 0 * * 1'  # every day at midnight
-  workflow_dispatch:
 
 
 permissions:
