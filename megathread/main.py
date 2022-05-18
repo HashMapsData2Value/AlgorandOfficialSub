@@ -83,9 +83,9 @@ def write_post(post):
 if __name__ == "__main__":
     post = generate_megathread(
         praw.Reddit(
-            sys.argv[1],  # Client Id
-            sys.argv[2],  # Client Secret
-            sys.argv[3],  # User Agent
+            client_id=sys.argv[1],  # Client Id
+            client_secret=sys.argv[2],  # Client Secret
+            user_agent=sys.argv[3],  # User Agent
         )
     )
     write_post(post)
