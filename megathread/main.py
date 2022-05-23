@@ -29,7 +29,7 @@ def generate_post_submissions_by_flair(post, submissions, flairs):
         post = post + "**{}**\n".format(flair)
         for submission in submissions:
             if submission.link_flair_text == flair:
-                post = post + "[{}]({})\n".format(submission.title, submission.url)
+                post = post + "- [{}]({})\n".format(submission.title, submission.url)
         post = post + "\n"
     return post
 
@@ -38,7 +38,7 @@ def add_no_flair_posts(post, submissions, flair):
     post = post + "**Posts Without Flairs**\n"
     for submission in submissions:
         if submission.link_flair_text == no_flair_token:
-            post = post + "[{}]({})\n".format(submission.title, submission.url)
+            post = post + "- [{}]({})\n".format(submission.title, submission.url)
     return post
 
 
