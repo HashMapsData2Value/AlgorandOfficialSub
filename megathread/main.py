@@ -86,7 +86,7 @@ def post_post(r, post):
     )
 
 if __name__ == "__main__":
-    print(os.environ["REDDIT_CLIENT_ID"])
+    print("hej:", os.environ["REDDIT_CLIENT_ID"])
     print(os.environ["REDDIT_USER_AGENT"])
     print(os.environ["REDDIT_USERNAME"])
     reddit = praw.Reddit(
