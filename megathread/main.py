@@ -80,9 +80,8 @@ def post_post(r, post):
     ao = r.subreddit("AlgorandOfficial")
     ao.submit(
         title="Megathread Test",
-        flair_id=1,
         selftext = post,
-        send_replies=False
+        send_replies=False,
     )
 
 if __name__ == "__main__":
@@ -93,7 +92,7 @@ if __name__ == "__main__":
             username=os.environ["REDDIT_USERNAME"],
             password=os.environ["REDDIT_PASSWORD"],
         )
-    print("user.me:", reddit.user.me())
-    #post = generate_megathread(reddit)
-    #write_post(post)
-    #post_post(reddit, post)
+    print("user.me:",   reddit.user.me())
+    post = generate_megathread(reddit)
+    write_post(post)
+    post_post(reddit, post)
