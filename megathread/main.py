@@ -93,7 +93,7 @@ if __name__ == "__main__":
             username=os.environ["REDDIT_USERNAME"],
             password=os.environ["REDDIT_PASSWORD"],
         )
-    print(reddit.user.me())
+    print("user.me:", reddit.user.me())
     #post = generate_megathread(reddit)
     #write_post(post)
     #post_post(reddit, post)
