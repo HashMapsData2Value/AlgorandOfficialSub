@@ -1,5 +1,5 @@
 from datetime import datetime
-import sys
+import os
 import praw
 
 no_flair_token = "___NOFLAIR___"
@@ -87,12 +87,13 @@ def post_post(r, post):
 
 if __name__ == "__main__":
     reddit = praw.Reddit(
-            client_id=sys.argv[1],  # Client Id
-            client_secret=sys.argv[2],  # Client Secret
-            user_agent=sys.argv[3],  # User Agent
-            username=sys.argv[4],
-            password=sys.argv[5]
+            client_id=os.environ["REDDIT_CLIENT_ID"],  # Client Id
+            client_secret=os.environ["REDDIT_CLIENT_SECRET"],  # Client Secret
+            user_agent=os.environ["REDDIT_USER_AGENT"],  # User Agent
+            username=os.environ["REDDIT_USERNAME"],
+            password=os.environ["REDDIT_PASSWORD"]
         )
+    print(reddit.user.me())
     post = generate_megathread(reddit)
     write_post(post)
     post_post(reddit, post)
