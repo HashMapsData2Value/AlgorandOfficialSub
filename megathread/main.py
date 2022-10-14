@@ -54,7 +54,7 @@ def submissions_from_last_week(reddit):
 
 
 def get_introductory_post():
-    post = "# WEEKLY RECAP"
+    post = "# WEEKLY RECAP\n"
     post = (
         post
         + "Welcome to the weekly AlgorandOfficial megathread. Here you can find a recap last week's posts, grouped by flair. Enjoy!\n"
