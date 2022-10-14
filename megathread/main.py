@@ -78,8 +78,10 @@ def write_post(post):
 
 def post_post(r, post):
     ao = r.subreddit("AlgorandOfficial")
-    print(ao.flair.templates)
-    print(ao.flair.link_templates)
+    for t in ao.flair.templates:
+        print(t)
+    for t in ao.flair.link_templates:
+        print(t)
     ao.submit(
         title="Megathread Test",
         flair_id="Important",
