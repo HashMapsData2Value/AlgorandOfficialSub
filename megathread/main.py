@@ -80,7 +80,6 @@ def post_post(r, post):
     ao = r.subreddit("AlgorandOfficial")
     ao.submit(
         title="Megathread Test",
-        flair_id=1
         selftext = post,
         send_replies=False
     )
