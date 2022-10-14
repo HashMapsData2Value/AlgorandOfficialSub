@@ -78,13 +78,11 @@ def write_post(post):
 
 def post_post(r, post):
     ao = r.subreddit("AlgorandOfficial")
-    for t in ao.flair.templates:
-        print(t)
-    for t in ao.flair.link_templates:
-        print(t)
+    choices = list(ao.flair.link_templates.user_selectable())
+    template_id = next(x for x in choices if x["flair_text"] == "Important")["flair_template_id"]
     ao.submit(
         title="Megathread Test",
-        flair_id="Important",
+        flair_id=template_id,
         selftext = post,
         send_replies=False,
     )
