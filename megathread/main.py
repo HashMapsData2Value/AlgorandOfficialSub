@@ -86,12 +86,15 @@ def post_post(r, post):
     )
 
 if __name__ == "__main__":
+    print(os.environ["REDDIT_CLIENT_ID"])
+    print(os.environ["REDDIT_USER_AGENT"])
+    print(os.environ["REDDIT_USERNAME"])
     reddit = praw.Reddit(
             client_id=os.environ["REDDIT_CLIENT_ID"],  # Client Id
             client_secret=os.environ["REDDIT_CLIENT_SECRET"],  # Client Secret
             user_agent=os.environ["REDDIT_USER_AGENT"],  # User Agent
             username=os.environ["REDDIT_USERNAME"],
-            password=os.environ["REDDIT_PASSWORD"]
+            password=os.environ["REDDIT_PASSWORD"],
         )
     print(reddit.user.me())
     post = generate_megathread(reddit)
