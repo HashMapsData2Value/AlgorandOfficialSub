@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 import os
 import praw
 
@@ -54,7 +54,7 @@ def submissions_from_last_week(reddit):
 
 
 def get_introductory_post():
-    post = "# MEGATHREAD - WEEK NUMBER {} RECAP".format(datetime.now().isocalendar()[1] - 1) + "\n"
+    post = "# WEEKLY RECAP"
     post = (
         post
         + "Welcome to the weekly AlgorandOfficial megathread. Here you can find a recap last week's posts, grouped by flair. Enjoy!\n"
@@ -79,10 +79,10 @@ def write_post(post):
 def post_post(r, post):
     ao = r.subreddit("AlgorandOfficial")
     choices = list(ao.flair.link_templates.user_selectable())
-    print(choices)
     template_id = next(x for x in choices if x["flair_text"] == "News/Media")["flair_template_id"]
+    title = "[MEGATHREAD] WEEKLY RECAP #{} {}".format(datetime.now().isocalendar()[1] - 1, date.today().year)
     ao.submit(
-        title="Megathread Test",
+        title=title,
         flair_id=template_id,
         selftext = post,
         send_replies=False,
