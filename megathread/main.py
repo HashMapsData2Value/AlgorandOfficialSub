@@ -4,7 +4,6 @@ import praw
 
 no_flair_token = "___NOFLAIR___"
 
-
 def fix_no_flair(submissions):
     for i in range(len(submissions)):
         if submissions[i].link_flair_text == None:
@@ -64,7 +63,6 @@ def get_introductory_post():
 
 
 def generate_megathread(reddit):
-
     submissions = submissions_from_last_week(reddit)
     post = get_introductory_post()
     flairs = get_all_flairs(submissions)
@@ -74,18 +72,27 @@ def generate_megathread(reddit):
 
     return post
 
-
 def write_post(post):
     with open("post.md", "w") as f:
         f.write(post)
 
+def post_post(r, post):
+    ao = r.subreddit("AlgorandOfficial")
+    ao.submit(
+        title="Megathread Test",
+        flair_id=1
+        selftext = post,
+        send_replies=False
+    )
 
 if __name__ == "__main__":
-    post = generate_megathread(
-        praw.Reddit(
+    reddit = praw.Reddit(
             client_id=sys.argv[1],  # Client Id
             client_secret=sys.argv[2],  # Client Secret
             user_agent=sys.argv[3],  # User Agent
+            username=sys.argv[4],
+            password=sys.argv[5]
         )
-    )
+    post = generate_megathread(reddit)
     write_post(post)
+    post_post(reddit, post)

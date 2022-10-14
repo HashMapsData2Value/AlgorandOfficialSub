@@ -23,5 +23,5 @@ jobs:
         pip install praw
     - name: Generate Megathread
       run: |
-        python megathread/main.py ${{ secrets.REDDIT_CLIENT_ID }} ${{ secrets.REDDIT_CLIENT_SECRET }} ${{ secrets.REDDIT_USER_AGENT }}
+        python megathread/main.py ${{ secrets.REDDIT_CLIENT_ID }} ${{ secrets.REDDIT_CLIENT_SECRET }} ${{ secrets.REDDIT_USER_AGENT }} ${{ secrets.REDDIT_USERNAME }} ${{ secrets.REDDIT_PASSWORD }}
         cat post.md
