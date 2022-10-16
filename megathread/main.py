@@ -44,9 +44,10 @@ def add_no_flair_posts(post, submissions, flair):
 def submissions_from_last_week(reddit):
     seven_days_ago_utc = datetime.now().timestamp() - 7 * 24 * 60 * 60
     submissions = []
-    for submission in reddit.subreddit("AlgorandOfficial").new(limit=100):
+    for submission in reddit.subreddit("AlgorandOfficial").new(limit=200):
         if submission.created_utc >= seven_days_ago_utc:
             submissions.append(submission)
+            print(submission.score, submission.upvote_ratio, submission.num_comments)
         else:
             break
     submissions = fix_no_flair(submissions)
