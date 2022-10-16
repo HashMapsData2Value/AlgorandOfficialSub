@@ -54,13 +54,8 @@ def submissions_from_last_week(reddit):
 
 
 def get_introductory_post():
-    post = "# WEEKLY RECAP\n"
-    post = (
-        post
-        + "Welcome to the weekly AlgorandOfficial megathread. Here you can find a recap last week's posts, grouped by flair. Enjoy!\n\n\n"
-    )
+    post = "Welcome to the weekly AlgorandOfficial subreddit recap megathread. Here you can find a recap last week's posts, grouped by flair. Enjoy!\n\n\n"
     return post
-
 
 def generate_megathread(reddit):
     submissions = submissions_from_last_week(reddit)
@@ -79,12 +74,12 @@ def write_post(post):
 def post_post(r, post):
     ao = r.subreddit("AlgorandOfficial")
     choices = list(ao.flair.link_templates.user_selectable())
-    template_id = next(x for x in choices if x["flair_text"] == "News/Media")["flair_template_id"]
+    template_id = next(x for x in choices if x["flair_text"] == "Megathread")["flair_template_id"]
     d = "{} - {} {}".format(
         (date.today() - timedelta(days=7)).strftime('%b %d'), 
         date.today().strftime('%b %d'), 
         date.today().year)
-    title = "AlgorandOfficial Weekly Recap: {}".format(d)
+    title = "Weekly Recap: {}".format(d)
     ao.submit(
         title=title,
         flair_id=template_id,
