@@ -28,7 +28,7 @@ def generate_post_submissions_by_flair(post, submissions, flairs):
         post = post + "**{}**\n".format(flair)
         for submission in submissions:
             if submission.link_flair_text == flair:
-                post = post + "- [{}]({})\n".format(submission.title, submission.url)
+                post = post + "- [{}]({})\n | Score: {}, Upvote_Ratio: {}, Num_Comments{}".format(submission.title, submission.url, submission.score, submission.upvote_ratio, submission.num_comments)
         post = post + "\n"
     return post
 
@@ -47,7 +47,6 @@ def submissions_from_last_week(reddit):
     for submission in reddit.subreddit("AlgorandOfficial").new(limit=200):
         if submission.created_utc >= seven_days_ago_utc:
             submissions.append(submission)
-            print(submission.title, submission.score, submission.upvote_ratio, submission.num_comments)
         else:
             break
     submissions = fix_no_flair(submissions)
