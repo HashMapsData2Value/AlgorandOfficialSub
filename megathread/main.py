@@ -54,7 +54,7 @@ def submissions_from_last_week(reddit):
 
 
 def get_introductory_post():
-    post = "Welcome to the weekly AlgorandOfficial subreddit recap megathread. Here you can find a recap last week's posts, grouped by flair. Enjoy!\n\n\n"
+    post = "Welcome to the weekly AlgorandOfficial subreddit recap megathread. Here you can find a recap of last week's posts, grouped by flair. Enjoy!\n\n\n"
     return post
 
 def generate_megathread(reddit):
