@@ -28,7 +28,7 @@ def generate_post_submissions_by_flair(post, submissions, flairs):
         post = post + "**{}**\n".format(flair)
         for submission in submissions:
             if submission.link_flair_text == flair:
-                post = post + "- [{}]({})\n | Score: {}, Upvote_Ratio: {}, Num_Comments{}".format(submission.title, submission.url, submission.score, submission.upvote_ratio, submission.num_comments)
+                post = post + "- [{}]({}) | Score: {}, Upvote_Ratio: {}, Num_Comments{}\n".format(submission.title, submission.url, submission.score, submission.upvote_ratio, submission.num_comments)
         post = post + "\n"
     return post
 
