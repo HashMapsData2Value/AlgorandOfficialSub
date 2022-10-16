@@ -1,4 +1,4 @@
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 import os
 import praw
 
@@ -80,7 +80,11 @@ def post_post(r, post):
     ao = r.subreddit("AlgorandOfficial")
     choices = list(ao.flair.link_templates.user_selectable())
     template_id = next(x for x in choices if x["flair_text"] == "News/Media")["flair_template_id"]
-    title = "[MEGATHREAD] WEEKLY RECAP #{} {}".format(datetime.now().isocalendar()[1] - 1, date.today().year)
+    d = "{} - {} {}".format(
+        (date.today() - timedelta(days=7)).strftime('%b %d'), 
+        date.today().strftime('%b %d'), 
+        date.today().year)
+    title = "AlgorandOfficial Weekly Recap: {}".format(d)
     ao.submit(
         title=title,
         flair_id=template_id,
