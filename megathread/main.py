@@ -3,6 +3,7 @@ import os
 import praw
 
 no_flair_token = "___NOFLAIR___"
+min_score = 5
 
 def fix_no_flair(submissions):
     for i in range(len(submissions)):
@@ -22,24 +23,25 @@ def get_all_flairs(submissions):
     flairs.sort()
     return flairs
 
-
 def generate_post_submissions_by_flair(post, submissions, flairs):
     for flair in flairs:
         post = post + "**{}**\n".format(flair)
         for submission in submissions:
-            if submission.link_flair_text == flair:
-                post = post + "- [{}]({}) | Upvotes: {}, Ratio: {}, Comments: {}\n".format(submission.title, submission.permalink, submission.score, submission.upvote_ratio, submission.num_comments)
+            if submission.link_flair_text == flair and submission.score > min_score:
+                post = post + get_submission_markup(submission)
         post = post + "\n"
-    return post
 
-
-def add_no_flair_posts(post, submissions, flair):
     post = post + "**Posts Without Flairs**\n"
     for submission in submissions:
-        if submission.link_flair_text == no_flair_token:
-            post = post + "- [{}]({})\n".format(submission.title, submission.url)
+        if submission.link_flair_text == no_flair_token and submission.score > min_score:
+            post = post + get_submission_markup(submission)
     return post
 
+def sort_submissions(submissions):
+    return sorted(submissions, key=lambda x: x.score, reverse=True)
+    
+def get_submission_markup(submission):
+    return "- [{}]({}) | S: {}, R: {}, C: {}\n".format(submission.title, submission.permalink, submission.score, submission.upvote_ratio, submission.num_comments)
 
 def submissions_from_last_week(reddit):
     seven_days_ago_utc = datetime.now().timestamp() - 7 * 24 * 60 * 60
@@ -54,17 +56,15 @@ def submissions_from_last_week(reddit):
 
 
 def get_introductory_post():
-    post = "Welcome to the weekly AlgorandOfficial subreddit recap megathread. Here you can find a recap of last week's posts, grouped by flair. Enjoy!\n\n\n"
+    post = "Welcome to the weekly AlgorandOfficial subreddit recap megathread. Here you can find a recap of last week's posts, with a filter of  grouped by flair and sorted by score. S = Score, R = Ratio, C = Comments. Enjoy!\n\n\n"
     return post
 
 def generate_megathread(reddit):
     submissions = submissions_from_last_week(reddit)
+    sorted_submissions = sort_submissions(submissions)
     post = get_introductory_post()
-    flairs = get_all_flairs(submissions)
-    submissions.sort(key=lambda x: x.link_flair_text)
-    post = generate_post_submissions_by_flair(post, submissions, flairs)
-    post = add_no_flair_posts(post, submissions, no_flair_token)
-
+    flairs = get_all_flairs(sorted_submissions)
+    post = generate_post_submissions_by_flair(post, sorted_submissions, flairs)
     return post
 
 def write_post(post):
@@ -79,7 +79,7 @@ def post_post(r, post):
         (date.today() - timedelta(days=7)).strftime('%b %d'), 
         date.today().strftime('%b %d'), 
         date.today().year)
-    title = "Weekly Recap: {}".format(d)
+    title = "r/AlgorandOfficial Weekly Recap: {}".format(d)
     ao.submit(
         title=title,
         flair_id=template_id,
@@ -89,13 +89,13 @@ def post_post(r, post):
 
 if __name__ == "__main__":
     reddit = praw.Reddit(
-            client_id=os.environ["REDDIT_CLIENT_ID"],  # Client Id
-            client_secret=os.environ["REDDIT_CLIENT_SECRET"],  # Client Secret
-            user_agent=os.environ["REDDIT_USER_AGENT"],  # User Agent
+            client_id=os.environ["REDDIT_CLIENT_ID"],
+            client_secret=os.environ["REDDIT_CLIENT_SECRET"],
+            user_agent=os.environ["REDDIT_USER_AGENT"],
             username=os.environ["REDDIT_USERNAME"],
             password=os.environ["REDDIT_PASSWORD"],
         )
     print("user.me:",   reddit.user.me())
     post = generate_megathread(reddit)
     write_post(post)
-    post_post(reddit, post)
+    #post_post(reddit, post)
