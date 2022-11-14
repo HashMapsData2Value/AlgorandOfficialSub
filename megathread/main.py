@@ -56,7 +56,7 @@ def submissions_from_last_week(reddit):
 
 
 def get_introductory_post():
-    post = "Welcome to the weekly AlgorandOfficial subreddit recap megathread. Here you can find a recap of last week's posts, with a filter of  grouped by flair and sorted by score. S = Score, R = Ratio, C = Comments. Enjoy!\n\n\n"
+    post = "Welcome to the weekly AlgorandOfficial subreddit recap megathread. Here you can find a recap of last week's posts, with a minimum score of {} and grouped by flair and sorted by score. S = Score, R = Ratio, C = Comments. Enjoy!\n\n\n".format(min_score)
     return post
 
 def generate_megathread(reddit):
@@ -95,7 +95,6 @@ if __name__ == "__main__":
             username=os.environ["REDDIT_USERNAME"],
             password=os.environ["REDDIT_PASSWORD"],
         )
-    print("user.me:",   reddit.user.me())
     post = generate_megathread(reddit)
     write_post(post)
-    #post_post(reddit, post)
+    post_post(reddit, post)
