@@ -27,7 +27,7 @@ def generate_post_submissions_by_flair(post, submissions, flairs):
     for flair in flairs:
         post = post + "**{}**\n".format(flair)
         for submission in submissions:
-            if submission.link_flair_text == flair and submission.score > min_score:
+            if submission.link_flair_text == flair and submission.score > min_score and "airdrop" not in submission.title:
                 post = post + get_submission_markup(submission)
         post = post + "\n"
 
